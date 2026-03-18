@@ -1,4 +1,4 @@
-namespace CoffeMachineApp.Domian.Element;
+namespace KurbanBarista.Domian.Element;
 
 // пока что пусто 
 

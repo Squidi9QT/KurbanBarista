@@ -1,11 +1,11 @@
 using System.Reflection.Metadata;
 
-namespace CoffeMachineApp.Domian.Ingredients;
+namespace KurbanBarista.Ingredients;
 
 public sealed class Milk : Ingredient
 {
     public Milk (double weight, bool isLactoseFree = false)
-        : base(isLactoseFree ? "Бузлактозное молоко" : "Молоко", weight)
+        : base(isLactoseFree ? "Бузлактозное молоко" : "Молоко", weight, 22)
     {
         IsLactoseFree = isLactoseFree;
     }
