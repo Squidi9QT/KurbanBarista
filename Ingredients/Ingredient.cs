@@ -1,4 +1,4 @@
-using KurbanBarista.Domian.Element;
+using KurbanBarista.Element;
 
 namespace KurbanBarista.Ingredients;
 

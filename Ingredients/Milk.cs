@@ -1,5 +1,3 @@
-using System.Reflection.Metadata;
-
 namespace KurbanBarista.Ingredients;
 
 public sealed class Milk : Ingredient
@@ -20,9 +18,11 @@ public sealed class Milk : Ingredient
         get
         {
             string tempStatus = ISWarm ? "Теплое" : "Холодное";
-            string floamStatus = IsWhipped ? "C пенкой" : "Без пенки";
-            return $"{Name}({Weight} г.) [{tempStatus}, {floamStatus}]";
+            string foamStatus = IsWhipped ? "C пенкой" : "Без пенки";
+            return $"{Name}({Weight} г.) [{tempStatus}, {foamStatus}]";
         }
     }
 
 }
+
+//переделай температуру добавить надо
