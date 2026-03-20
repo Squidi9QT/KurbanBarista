@@ -5,35 +5,32 @@ using KurbanBarista.Actions;
 Console.WriteLine("===Kurban Barista-Лучшее Кофе!!!===");
 Console.WriteLine("(абсолютно непредвзятое мнение)");
 
-Drink myCoffee = new Drink {Name = "Эспрессо"};
-Water water = new Water(50);
-CoffeeBean beans = new CoffeeBean(15);
+Drink myDrink = new Drink();
 
-Console.WriteLine("\n --Исходные ингредиенты--");
-Console.WriteLine(water.DisplayName);
-Console.WriteLine(beans.DisplayName);
-
-BoilAction boil = new BoilAction(water);
-GrindAction grind = new GrindAction(beans);
-
-AddAction addWater = new AddAction(water);
-AddAction addCoffee = new AddAction(beans);
-
-Console.WriteLine("\n --Готовится--");
-
-boil.Execute(myCoffee);
-grind.Execute(myCoffee);
-
-addCoffee.Execute(myCoffee);
-addWater.Execute(myCoffee);
-
-Console.WriteLine("\n=== Ваш  напиток ===");
-Console.WriteLine($"Название: {myCoffee.Name}");
-Console.WriteLine($"Общая масса: {myCoffee.TotalWeight} г.");
-Console.WriteLine($"Итоговая температура: {myCoffee.CurrentTemp}°C");
-
-Console.WriteLine("Состав:");
-foreach (var ingredient in myCoffee.Ingredients)
+bool isOrdering = true;
+while(isOrdering)
 {
-    Console.WriteLine($"-{ingredient.DisplayName}");
+    Console.WriteLine($"\n ||| Текущий напиток: {myDrink.Name} ({myDrink.CurrentTemp}°C, {myDrink.TotalWeight} г.) |||");
+    Console.WriteLine("Что добавим в чашку?");
+
+    Console.WriteLine("1 - Добавить воду (Кипяток, 50г)");
+    Console.WriteLine("2 - Перемолоть и добавить кофе (15г)");
+    Console.WriteLine("3 - Налить молоко (выбрать температуру и пенку)");
+    Console.WriteLine("4 - Добавить лёд (30г)");
+    Console.WriteLine("5 - Добавить Карамельный сироп (15г)");
+    Console.WriteLine("6 - Добавить Клубничный сироп (15г)");
+    Console.WriteLine("0 - Выдать чек!");
+    Console.Write("Ваш выбор: ");
+
+    string choice = Console.ReadLine();
+    Console.WriteLine();
+
+    switch (choice)
+    {
+        case "1":
+        Water water = new Water(50);
+        new BoilAction(water).Execute(myDrink);
+        new AddAction(water).Execute(myDrink);
+        break;
+    }
 }
