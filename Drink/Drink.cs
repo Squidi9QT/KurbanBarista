@@ -4,7 +4,7 @@ namespace KurbanBarista.Drinks;
 
 public class Drink
 {
-    public string Name {get; set;} = "Неизвестный напиток";
+    public string Name {get; set;} = "Пустая чашка";
 
     public List<Ingredient> Ingredients {get;} = new List<Ingredient>();
 
@@ -15,6 +15,7 @@ public class Drink
     {
         Ingredients.Add(ingredient);
         RecalculatePhysics();
+        UpdateName();
     }
 
     private void RecalculatePhysics()
@@ -31,6 +32,63 @@ public class Drink
         if (totalWeight > 0)
         {
             CurrentTemp = Math.Round(weightedTempSum / totalWeight, 1);
+        }
+    }
+    private void UpdateName()
+    {
+        bool hasCoffee = false;
+        bool hasMilk = false;
+        bool hasIce = false;
+        bool hasWater = false;
+        string syrupFlavor = "";
+
+        foreach (var ing in Ingredients)
+        {
+            if (ing is CoffeeBean) hasCoffee = true;
+            if (ing is Milk) hasMilk = true;
+            if (ing is Ice) hasIce = true;
+            if (ing is Water) hasWater = true;
+            if (ing is Syrup syrup) syrupFlavor = syrup.Flavor;
+        }
+        string baseName = "Пустая чашка";
+
+        if(hasCoffee)
+        {
+            if (hasIce && hasMilk) baseName = "Айс-латте";
+            else if (hasIce) baseName = "Айс-кофе";
+            else if (hasMilk) baseName = "Капучино";
+            else baseName = "Эспрессо";
+        }
+
+        else
+        {
+            if (hasMilk)
+            {
+                baseName = (syrupFlavor != "" || hasIce) ? "Молочный коктель" : "Стакан молока";
+            }
+            else if (hasWater)
+            {
+                baseName = (syrupFlavor != "") ? "Лимонад" : (hasIce ? "Вода со льдом" : "Вода");
+            }
+            else if (hasIce && syrupFlavor != "")
+            {
+                baseName = "Фруктовый лед";
+            }
+            else if (syrupFlavor != "")
+            {
+                baseName = "Сироп в стакане";
+            }
+        }
+
+        if (!string.IsNullOrEmpty(syrupFlavor))
+        {
+            string fullName = $"{syrupFlavor} {baseName.ToLower()}";
+            Name = char.ToUpper(fullName[0]) + fullName.Substring(1);
+        }
+
+        else
+        {
+            Name = baseName;
         }
     }
 }

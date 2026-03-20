@@ -1,9 +1,6 @@
 using KurbanBarista;
 namespace KurbanBarista.Ingredients;
 
-
-// пока пусто
-
 public abstract class Ingredient : IElement
 {
     protected Ingredient (string name, double weight, double temp)
