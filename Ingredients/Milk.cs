@@ -9,20 +9,15 @@ public sealed class Milk : Ingredient
     }
 
     public bool IsLactoseFree {get;}
-
     public bool IsWhipped {get; set;} = false;
-    public bool ISWarm {get; set;} = false;
-
     public override string DisplayName
     {
         get
         {
-            string tempStatus = ISWarm ? "Теплое" : "Холодное";
+            string tempStatus = Temp > 40 ? "Горячее" : "Холодное";
             string foamStatus = IsWhipped ? "C пенкой" : "Без пенки";
             return $"{Name}({Weight} г.) [{tempStatus}, {foamStatus}]";
         }
     }
 
 }
-
-//переделай температуру добавить надо

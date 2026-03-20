@@ -1,5 +1,6 @@
-namespace KurbanBarista.Ingredients;
 using KurbanBarista;
+namespace KurbanBarista.Ingredients;
+
 
 // пока пусто
 
