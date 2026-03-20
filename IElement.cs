@@ -1,4 +1,4 @@
-namespace KurbanBarista.Element;
+namespace KurbanBarista;
 
 // пока что пусто 
 

@@ -1,13 +1,12 @@
-using KurbanBarista.Element;
 using KurbanBarista.Drinks;
 
 namespace KurbanBarista.Actions;
 
-public abstract class Actions : IElement
+public abstract class Action : IElement
 {
     public IElement TargetElement {get; private set;}
 
-    protected Actions(IElement targetElement)
+    protected Action(IElement targetElement)
     {
         TargetElement = targetElement;
     }

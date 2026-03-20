@@ -5,7 +5,7 @@ namespace KurbanBarista.Actions;
 
 public class  AddAction : Action
 {
-    public AddActions(Ingredient ingredient) : base(ingredient){}
+    public AddAction(Ingredient ingredient) : base(ingredient){}
 
     public override string DisplayName => $"Добавить: {TargetElement.DisplayName}";
     public override void Execute(Drink drink)
