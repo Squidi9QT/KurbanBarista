@@ -1,3 +1,4 @@
+using System.Data.Common;
 using KurbanBarista.Ingredients;
 
 namespace KurbanBarista.Drinks;
@@ -11,11 +12,27 @@ public class Drink
     public double TotalWeight {get; private set;}
     public double CurrentTemp {get; private set;}
 
+    public bool NeedsCustomName{get; private set;} = false;
+
     public void AddIngredient(Ingredient ingredient)
     {
         Ingredients.Add(ingredient);
         RecalculatePhysics();
         UpdateName();
+    }
+
+    public void SetCustomName(string newName)
+    {
+        Name = newName;
+        NeedsCustomName = false;
+    }
+
+    public void HeatUp(double targetTemp)
+    {
+        if(CurrentTemp < targetTemp)
+        {
+            CurrentTemp = targetTemp;
+        }
     }
 
     private void RecalculatePhysics()
@@ -40,7 +57,8 @@ public class Drink
         bool hasMilk = false;
         bool hasIce = false;
         bool hasWater = false;
-        string syrupFlavor = "";
+
+        List<string> uniqueSuryp = new List<string>();
 
         foreach (var ing in Ingredients)
         {
@@ -48,8 +66,25 @@ public class Drink
             if (ing is Milk) hasMilk = true;
             if (ing is Ice) hasIce = true;
             if (ing is Water) hasWater = true;
-            if (ing is Syrup syrup) syrupFlavor = syrup.Flavor;
+
+            if (ing is Syrup syrup && !uniqueSuryp.Contains(syrup.Flavor))
+            {
+                uniqueSuryp.Add(syrup.Flavor);
+            }
         }
+
+        if (uniqueSuryp.Count > 1 || Ingredients.Count > 10)
+        {
+            NeedsCustomName = true;
+            Name = "Авторский микс";
+            return;
+        }
+        else
+        {
+            NeedsCustomName = false;
+        }
+
+        string syrupFlavor = uniqueSuryp.Count == 1 ? uniqueSuryp[0] : "";
         string baseName = "Пустая чашка";
 
         if(hasCoffee)

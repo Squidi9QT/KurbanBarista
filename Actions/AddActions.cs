@@ -12,7 +12,7 @@ public class  AddAction : Action
     {
         if (TargetElement is Ingredient ingredient)
         {
-            Console.WriteLine($"[Действие] Добавляем {ingredient.Name} в коктель...");
+            Console.WriteLine($"[Действие] Добавляем {ingredient.Name} в чашку...");
             drink.AddIngredient(ingredient);
         }
     }
