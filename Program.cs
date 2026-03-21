@@ -27,7 +27,7 @@ while(isOrdering)
     Console.WriteLine("0 - Выдать чек!");
     Console.Write("Ваш выбор: ");
 
-    string choice = Console.ReadLine();
+    string choice = Console.ReadLine()!;
     Console.WriteLine();
 
     switch (choice)
@@ -83,6 +83,34 @@ while(isOrdering)
         Console.WriteLine("Нет такого пункта");
         break;
     }
+}
+
+if (myDrink.NeedsCustomName)
+{
+    Console.WriteLine("\n[Бариста Курбан ашалел] Вы смешали слишком много вкусов!");
+    Console.Write("Как назавете свой шедевр?");
+    string customName = Console.ReadLine()!;
+
+    if(!string.IsNullOrWhiteSpace(customName))
+    {
+        myDrink.SetCustomName(customName);
+    }
+}
+
+if(myDrink.TotalWeight > 0)
+{
+    Console.WriteLine($"\nТекущая температура напитка: {myDrink.CurrentTemp}°C");
+    Console.WriteLine("Что делаем с температурой?");
+    Console.WriteLine("1 - Оставить как есть");
+    Console.WriteLine("2 - Подогреть (до 80°C)");
+    Console.Write("Ваш выбор:");
+
+    if (Console.ReadLine() == "2")
+    {
+        Console.WriteLine("[Действие...]Вжжжж! Подогреваем ваш напиток!");
+        myDrink.HeatUp(80);
+    }
+
 }
 
 Console.BackgroundColor = ConsoleColor.White;
