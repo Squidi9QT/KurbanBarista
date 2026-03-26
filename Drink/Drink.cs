@@ -1,5 +1,5 @@
-using System.Data.Common;
 using KurbanBarista.Ingredients;
+using KurbanBarista.Actions;
 
 namespace KurbanBarista.Drinks;
 
@@ -7,12 +7,18 @@ public class Drink
 {
     public string Name {get; set;} = "Пустая чашка";
 
-    public List<Ingredient> Ingredients {get;} = new List<Ingredient>();
+    public List<Ingredient> Ingredients {get;} = new List<Ingredient>(); // !!! наслед от айелемент абстрактно чет такое внимательнее с схемой
+    public List<string> RecipeSteps {get;} = new List<string>();
 
     public double TotalWeight {get; private set;}
     public double CurrentTemp {get; private set;}
-
     public bool NeedsCustomName{get; private set;} = false;
+
+    public void ApplyAction(KurbanBarista.Actions.Action action)
+    {
+        action.Execute(this);
+        RecipeSteps.Add(action.DisplayName);
+    }
 
     public void AddIngredient(Ingredient ingredient)
     {
