@@ -11,7 +11,7 @@ public class PourAction : Action
     {
         if(TargetElement is Water water)
         {
-            Console.WriteLine($"[Действие...] Проливаем воду ({water.Temp}°C)");
+            Console.WriteLine($"[Действие] Проливаем воду... ({water.Temp}°C)");
             drink.AddIngredient(water);
         }
     }

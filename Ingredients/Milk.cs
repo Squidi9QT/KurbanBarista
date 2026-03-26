@@ -3,7 +3,7 @@ namespace KurbanBarista.Ingredients;
 public sealed class Milk : Ingredient
 {
     public Milk (double weight, bool isLactoseFree = false)
-        : base(isLactoseFree ? "Бузлактозное молоко" : "Молоко", weight, 22)
+        : base(isLactoseFree ? "Бузлактозное молоко" : "Молоко", weight, 20)
     {
         IsLactoseFree = isLactoseFree;
     }

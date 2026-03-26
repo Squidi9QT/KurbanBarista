@@ -11,7 +11,6 @@ Console.WriteLine("  (абсолютно непредвзятое мнение) 
 Console.ResetColor();
 
 Drink myDrink = new Drink();
-
 bool isOrdering = true;
 while(isOrdering)
 {
@@ -33,15 +32,15 @@ while(isOrdering)
     switch (choice)
     {
         case "1":
-        Water water = new Water(50);
-        new BoilAction(water).Execute(myDrink);
-        new AddAction(water).Execute(myDrink);
+        Water water = new Water(250);
+        myDrink.ApplyAction(new BoilAction(water));
+        myDrink.ApplyAction(new PourAction(water));
         break;
 
         case "2":
         CoffeeBean beans = new CoffeeBean(15);
-        new GrindAction(beans).Execute(myDrink);
-        new AddAction(beans).Execute(myDrink);
+        myDrink.ApplyAction(new GrindAction(beans));
+        myDrink.ApplyAction(new AddAction(beans));
         break;
 
         case "3":
@@ -50,29 +49,33 @@ while(isOrdering)
         Console.Write("Взбить молоко? [1-да 0-нет]: ");
         if (Console.ReadLine()=="1")
             {
-                new WhipAction(milk).Execute(myDrink);
+                myDrink.ApplyAction(new WhipAction(milk));
             }
 
         Console.Write("Подогреть молоко? [1-да 0-нет]: ");
         if (Console.ReadLine()=="1")
             {
                 Console.Write("[Действие] Нагреваем молоко...");
-                milk.Temp = 60;
+                milk.Temp = 67;
             }
 
-        new AddAction(milk).Execute(myDrink);
+        myDrink.ApplyAction(new AddAction(milk));
         break;
 
         case "4":
-        new AddAction(new Ice(30)).Execute(myDrink);
+        myDrink.ApplyAction(new AddAction(new Ice(30)));
         break;
 
         case "5":
-        new AddAction(new Syrup("Карамельный", 15)).Execute(myDrink);
+        Syrup caramel = new Syrup("Карамельный", 15);
+        myDrink.ApplyAction(new AddAction(caramel));
+        myDrink.ApplyAction(new MixAction(caramel));
         break;
 
         case "6":
-        new AddAction(new Syrup("Клубничный", 15)).Execute(myDrink);
+        Syrup strawberry = new Syrup("Клубничный", 15);
+        myDrink.ApplyAction(new AddAction(strawberry));
+        myDrink.ApplyAction(new MixAction(strawberry));
         break;
 
         case "0":
@@ -122,6 +125,13 @@ Console.WriteLine("===============================");
 Console.WriteLine($"Название: {myDrink.Name}");
 Console.WriteLine($"Общая масса: {myDrink.TotalWeight} г.");
 Console.WriteLine($"Итоговая температура: {myDrink.CurrentTemp}°C");
+
+Console.WriteLine("\nПошаговый рецепт приготовления:");
+for (int i = 0; i < myDrink.RecipeSteps.Count; i++)
+{
+    Console.WriteLine($"{i+1}.{myDrink.RecipeSteps[i]}");
+}
+
 Console.WriteLine("\nСостав:");
 foreach (var ingredient in myDrink.Ingredients)
 {

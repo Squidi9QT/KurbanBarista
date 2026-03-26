@@ -5,7 +5,7 @@ namespace KurbanBarista.Actions;
 
 public abstract class Action : IElement
 {
-    public IElement TargetElement {get; private set;} // список таргет елементов должен быть
+    public IElement TargetElement {get; private set;}
 
     protected Action(IElement targetElement)
     {

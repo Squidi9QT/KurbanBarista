@@ -7,7 +7,7 @@ public class Drink
 {
     public string Name {get; set;} = "Пустая чашка";
 
-    public List<Ingredient> Ingredients {get;} = new List<Ingredient>(); // !!!
+    public List<Ingredient> Ingredients {get;} = new List<Ingredient>();
     public List<string> RecipeSteps {get;} = new List<string>();
 
     public double TotalWeight {get; private set;}
@@ -133,3 +133,4 @@ public class Drink
         }
     }
 }
+// Арут одобрил 
